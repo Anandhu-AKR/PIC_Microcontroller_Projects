@@ -42,7 +42,7 @@ This project demonstrates controlling two DC motors using a PIC18F4580 microcont
 
 ## 💻 Code Highlights
 
-```
+```c
 #include <pic18.h>
 
 void delay1() {
@@ -137,22 +137,20 @@ void main(void) {
     }
 }
 
+```
 ## 💬 Note
-
-The condition checks `RB0` and `RB1` (active low). Change logic as needed for your actual hardware buttons.
+The condition checks RB0 and RB1 (active low). Change logic as needed for your actual hardware buttons.
 
 ---
 
-## 🗺️ Schematic Diagram
-
-![Schematic](motor_lcd.png)
+## 🗺 Schematic Diagram
+*(Insert your schematic diagram image or link here)*
 
 ---
 
 ## 🧪 Simulation & Hardware
 
 ### Simulation (Proteus)
-
 - Add PIC18F4580
 - Add L293D and two DC motors
 - Add 16x2 LCD
@@ -161,15 +159,13 @@ The condition checks `RB0` and `RB1` (active low). Change logic as needed for yo
 - Simulate motor control and LCD messages
 
 ### Hardware
-
 - Program the PIC using a PICkit
 - Assemble the circuit on breadboard or PCB
 - Test motors and LCD output
 
 ---
 
-## 🛠️ Future Enhancements
-
+## 🛠 Future Enhancements
 - Add more button-based motor control modes
 - Implement speed control using PWM
 - Improve LCD status updates
@@ -177,15 +173,11 @@ The condition checks `RB0` and `RB1` (active low). Change logic as needed for yo
 ---
 
 ## 📚 Resources
-
-- [PIC18F4580 Datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/39637c.pdf)
-- [L293D Datasheet](https://www.ti.com/lit/ds/symlink/l293d.pdf)
-- [Proteus Design Suite](https://www.labcenter.com)
+- PIC18F4580 Datasheet
+- L293D Datasheet
+- Proteus Design Suite
 
 ---
 
 ## 💬 License
-
 This project is released under the MIT License. Feel free to use, modify, and share!
-
----
