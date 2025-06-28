@@ -81,6 +81,10 @@ void main(void) {
 
 ---
 
+## Schematic motor_lcd.png
+
+---
+
 ## 🧪 Simulation & Hardware
 
 **Simulation (Proteus):**
@@ -117,10 +121,3 @@ void main(void) {
 ## 💬 License
 
 This project is released under the MIT License. Feel free to use, modify, and share!
-
----
-
-✅ Copy this whole block as your README.md — it is fully formatted and ready! Let me know if you'd also like to embed schematic images or extra diagrams.
-```
-
-Want help adding a schematic or wiring diagram too? 😊
