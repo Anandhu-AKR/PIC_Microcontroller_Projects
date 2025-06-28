@@ -33,7 +33,7 @@ The repository includes comprehensive instructions for simulating the project us
 
 ## 🗺️ Schematic Diagram
 
-![Schematic](schematic.png)
+![Schematic](blink.png)
 
 ---
 
