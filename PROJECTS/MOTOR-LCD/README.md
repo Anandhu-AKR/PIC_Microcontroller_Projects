@@ -81,7 +81,9 @@ void main(void) {
 
 ---
 
-## Schematic motor_lcd.png
+## 🗺️ Schematic Diagram
+
+![Schematic](motor_lcd.png)
 
 ---
 
