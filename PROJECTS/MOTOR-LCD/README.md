@@ -143,8 +143,9 @@ The condition checks RB0 and RB1 (active low). Change logic as needed for your a
 
 ---
 
-## 🗺 Schematic Diagram
-*(Insert your schematic diagram image or link here)*
+## 🗺️ Schematic Diagram
+
+![Schematic](motor_lcd.png)
 
 ---
 
@@ -173,9 +174,9 @@ The condition checks RB0 and RB1 (active low). Change logic as needed for your a
 ---
 
 ## 📚 Resources
-- PIC18F4580 Datasheet
-- L293D Datasheet
-- Proteus Design Suite
+- [PIC18F4580 Datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/39582h.pdf)  
+- [L293D Datasheet](https://www.ti.com/lit/ds/symlink/l293.pdf)  
+- [Proteus Design Suite](https://www.labcenter.com/)
 
 ---
 
