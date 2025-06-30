@@ -138,7 +138,7 @@ char key() {
 - Code assumes a specific keypad layout — verify with your hardware.
 
 ## 📄 License
-Shared for educational purposes only. Unauthorized reproduction or distribution is prohibited. See the [LICENSE](LICENSE) file for details.
+This project is shared for educational purposes only. Unauthorized reproduction or distribution is prohibited.
 
 ## 🙏 Acknowledgments
 Designed and tested on a PIC18F4550 development board with a standard 16x2 LCD module.
