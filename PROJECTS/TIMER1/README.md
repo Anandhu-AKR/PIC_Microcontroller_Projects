@@ -110,15 +110,19 @@ void timer() {
 
 ![Schematic](timer1_osc.png)
 
+```
+
 🪜 Steps to Build & Test
 1️⃣ Write the code in MPLAB IDE.2️⃣ Compile using XC8 compiler to generate hex file.3️⃣ Flash to PIC18F4580 microcontroller.4️⃣ Connect PORTD pins to oscilloscope or LEDs.5️⃣ Apply power and observe toggling every ~10 ms.
+
+```
 
 ## 💬 Additional Notes
 
 You can change TMR1 preload to adjust the delay.
 Use the calculation formula to target precise delays for different applications.
 
-
+``` 
 ## ⚠️ Limitations
 
 Uses polling method; CPU waits for timer overflow (not efficient).
@@ -136,4 +140,5 @@ Designed and simulated with Proteus using a PIC18F4580 development setup.
 - [PIC18F4580 Datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/39626b.pdf)
 - [Proteus Design Suite](https://www.labcenter.com/)
 
+```
 
