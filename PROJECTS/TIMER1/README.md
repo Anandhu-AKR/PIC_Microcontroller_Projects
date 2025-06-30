@@ -112,8 +112,13 @@ void timer() {
 
 ```
 
-🪜 Steps to Build & Test
-1️⃣ Write the code in MPLAB IDE.2️⃣ Compile using XC8 compiler to generate hex file.3️⃣ Flash to PIC18F4580 microcontroller.4️⃣ Connect PORTD pins to oscilloscope or LEDs.5️⃣ Apply power and observe toggling every ~10 ms.
+## 🪜 Steps to Build & Test
+
+1️⃣ Write the code in MPLAB IDE.
+2️⃣ Compile using XC8 compiler to generate hex file.
+3️⃣ Flash to PIC18F4580 microcontroller.
+4️⃣ Connect PORTD pins to oscilloscope or LEDs.
+5️⃣ Apply power and observe toggling every ~10 ms.
 
 ```
 
