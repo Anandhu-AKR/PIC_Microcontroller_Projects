@@ -78,7 +78,6 @@ For Fosc = 20 MHz and desired baud = 9600:
 
 SPBRG = (Fosc / (16 * Baud)) - 1 SPBRG = (20,000,000 / (16 * 9600)) - 1 ≈ 129
 
-```
 
 ## 🪜 Steps to Build & Simulate
 1️⃣ Write the code in MPLAB IDE and compile using XC8.
@@ -87,13 +86,13 @@ SPBRG = (Fosc / (16 * Baud)) - 1 SPBRG = (20,000,000 / (16 * 9600)) - 1 ≈ 129
 4️⃣ Start simulation; "HELLO" will be displayed on the virtual terminal.
 5️⃣ (Optional) Connect to a real PC terminal using USB-UART converter if testing on hardware.
 
-```
+
 ## ⚠️ Notes
 - Baud rate configuration depends on crystal frequency. Adjust SPBRG if using a different clock.
 - No receive functionality implemented here; only transmit.
 - RC6 (TX) must be set as output, RC7 (RX) as input.
 
-```
+
 ## 📄 License
 This project is shared for educational purposes only. Unauthorized reproduction or distribution is prohibited.
 
