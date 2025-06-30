@@ -128,7 +128,7 @@ void main(void) {
 - **Transmission and reception**: Enabled
 
 ## 🖼️ Schematic
-![Schematic](usart-lcd.png)
+![Schematic](usat-lcd.png)
 
 ## ⚠️ Limitations
 - Blocking receive — no interrupt used.
@@ -136,7 +136,7 @@ void main(void) {
 - Software delay is approximate.
 
 ## 📄 License
-This project is shared for educational purposes only. Unauthorized reproduction or commercial use is prohibited. See the [LICENSE](LICENSE) file for details.
+This project is shared for educational purposes only. Unauthorized reproduction or commercial use is prohibited.
 
 ## 🙏 Acknowledgments
 Developed and tested on a PIC18F4550 development board and Proteus simulation.
