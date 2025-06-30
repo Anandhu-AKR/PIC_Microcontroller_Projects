@@ -110,8 +110,8 @@ void timer() {
 
 ![Schematic](timer1_osc.png)
 
-
-## 🪜 Steps to Build & Test
+```
+🪜 Steps to Build & Test:
 
 1️⃣ Write the code in MPLAB IDE.
 2️⃣ Compile using XC8 compiler to generate hex file.
@@ -119,7 +119,7 @@ void timer() {
 4️⃣ Connect PORTD pins to oscilloscope or LEDs.
 5️⃣ Apply power and observe toggling every ~10 ms.
 
-
+```
 
 ## 💬 Additional Notes
 
