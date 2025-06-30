@@ -87,7 +87,7 @@ void delay() {
 
 ```
 
-##▶️ Steps to Build & Test
+## ▶️ Steps to Build & Test
 1️⃣ Compile code using MPLAB XC8.
 2️⃣ Program the PIC18F4580 with generated HEX file.
 3️⃣ Connect LED (if using) and oscilloscope as shown in schematic.
