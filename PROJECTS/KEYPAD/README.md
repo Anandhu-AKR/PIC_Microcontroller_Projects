@@ -25,6 +25,73 @@ This project demonstrates using a **PIC18F4550 microcontroller** to interface a 
 
 ---
 
+## 📌 Pin Configuration
+
+| Component      | Pin Description | PIC18F4550 Port | Notes                         |
+|----------------|-----------------|-----------------|-------------------------------|
+| LCD RS         | Register Select | RA0             | Control instruction/data      |
+| LCD EN         | Enable          | RA1             | Triggers LCD read/write       |
+| LCD D0–D7      | Data Bus        | PORTB (RB0–RB7) | 8-bit parallel data           |
+| Keypad Rows    | R1–R4           | RD7–RD4         | Output — activated one at a time |
+| Keypad Columns | C1–C4           | RD3–RD0         | Input — read pressed state    |
+
+---
+
+### 🧮 Matrix Keypad Basics
+
+A **4x4 keypad** has 4 rows and 4 columns. Every key press shorts a row and a column. To detect which key is pressed:
+1. Set **one row LOW** (others HIGH).
+2. Read the **column inputs**:
+   - If one column reads LOW → that key is pressed.
+3. Cycle through all rows one by one.
+
+---
+
+### 🔁 Scanning Algorithm Used
+
+We scan one row at a time by outputting a **specific pattern** to `PORTD` and then reading the column lines:
+
+```c
+PORTD = 0x7F;  // 0111 1111 → RD7=0 (Row 1 active), RD6–RD4=1, RD3–RD0 are column inputs
+PORTD & 0x0F → reads the lower nibble (RD3–RD0)
+
+We check for expected patterns using switch-case
+
+Expected Input Values from Columns:
+
+Column Pressed	Input Pattern	Binary	Hex
+C1	1110	0b1110	0x0E
+C2	1101	0b1101	0x0D
+C3	1011	0b1011	0x0B
+C4	0111	0b0111	0x07
+
+Explanation of Hex Values:
+
+PORTD = 0x7F = 0111 1111 → RD7 = 0 (activates Row 1)
+
+The keypad hardware is wired so when a key in Row 1 is pressed, one column pin is pulled low.
+
+The column bits (RD3–RD0) form values like 0x0E, 0x0D, etc.
+
+These values are decoded in switch() statements to return a corresponding character.
+
+🔢 Keypad Mapping
+Col 1	Col 2	Col 3	Col 4
+Row 1	1	2	3	4
+Row 2	5	6	7	8
+Row 3	A	B	C	D
+Row 4	E	F	G	H
+
+Each row corresponds to a PORTD value:
+
+Row	PORTD Value	Binary
+R1	0x7F	0111 1111
+R2	0xBF	1011 1111
+R3	0xDF	1101 1111
+R4	0xEF	1110 1111
+
+```
+
 ## ⚡ Circuit Diagram
 ![Schematic](keypad.png)
 
@@ -33,68 +100,97 @@ This project demonstrates using a **PIC18F4550 microcontroller** to interface a 
 ## 🧑‍💻 Code
 
 ```c
-#include <pic18.h>
+#include <pic18.h>  // Include device-specific header for PIC18F4550
 
+// Function Prototypes
 void delay();
 void command(int);
 void dat(char);
 char key();
 
+/**
+ * Delay function - crude software delay using nested loops
+ * You can tune loop counts depending on your clock frequency
+ */
 void delay() {
     int i, j;
     for (i = 0; i < 600; i++) {
-        for (j = 0; j < 200; j++) {}
+        for (j = 0; j < 200; j++) {
+            // Do nothing - just waste time
+        }
     }
 }
 
+/**
+ * Send a command to the LCD
+ * cmd: 8-bit command to send (e.g., 0x01 to clear, 0x80 to go to line 1, etc.)
+ */
 void command(int cmd) {
-    LATB = cmd;
-    RA0 = 0;
-    RA1 = 1;
-    delay();
-    RA1 = 0;
+    LATB = cmd;  // Send command to PORTB (connected to LCD data pins)
+    RA0 = 0;     // RS = 0 → Command mode
+    RA1 = 1;     // Enable pulse (E = 1)
+    delay();     // Short delay
+    RA1 = 0;     // E = 0 → Latch the command
 }
 
+/**
+ * Send data (character) to the LCD
+ * data: ASCII character to display
+ */
 void dat(char data) {
-    LATB = data;
-    RA0 = 1;
-    RA1 = 1;
-    delay();
-    RA1 = 0;
+    LATB = data;  // Send data to PORTB
+    RA0 = 1;      // RS = 1 → Data mode
+    RA1 = 1;      // Enable pulse (E = 1)
+    delay();      // Short delay
+    RA1 = 0;      // E = 0 → Latch the data
 }
 
+/**
+ * Main function
+ * Initializes ports, LCD, and starts scanning keypad to display input on LCD
+ */
 void main(void) {
-    TRISA = 0x00;
-    TRISB = 0x00;
-    ADCON1 = 0x0F;
-    TRISC = 0x00;
-    TRISD = 0x0F;
+    TRISA = 0x00;   // Set all PORTA pins as output (RA0:RS, RA1:E)
+    TRISB = 0x00;   // Set PORTB as output (LCD data lines)
+    ADCON1 = 0x0F;  // Configure all PORTA/PORTB pins as digital I/O
+    TRISC = 0x00;   // PORTC can be used if needed; set as output
+    TRISD = 0x0F;   // RD0–RD3 (Rows) as input (0), RD4–RD7 (Columns) as output (1)
 
-    command(0x38);
-    command(0x80);
-    command(0x06);
-    command(0x0E);
-    command(0x01);
+    // LCD Initialization sequence
+    command(0x38);  // 8-bit, 2-line, 5x8 font
+    command(0x80);  // Move cursor to beginning of first line
+    command(0x06);  // Increment cursor
+    command(0x0E);  // Display ON, Cursor ON
+    command(0x01);  // Clear display
 
     char b;
     while (1) {
-        b = key();
-        dat(b);
+        b = key();   // Scan keypad for input
+        dat(b);      // Display received key on LCD
     }
 }
 
+/**
+ * Keypad scanning function (4x4 matrix)
+ * PORTD bits RD7-RD4 are rows (outputs), RD3-RD0 are columns (inputs)
+ * The function sets one row LOW at a time and reads the columns
+ * Returns the corresponding character when a key is pressed
+ */
 char key() {
     int e;
+
     while (1) {
+        // ROW1 LOW, others HIGH → PORTD = 0111 1111b = 0x7F
         PORTD = 0x7F;
-        e = PORTD & 0x0F;
+        e = PORTD & 0x0F;  // Read lower 4 bits (columns)
         switch (e) {
-            case 0x07: return '4';
-            case 0x0B: return '3';
-            case 0x0D: return '2';
-            case 0x0E: return '1';
+            case 0x07: return '4';  // 0111
+            case 0x0B: return '3';  // 1011
+            case 0x0D: return '2';  // 1101
+            case 0x0E: return '1';  // 1110
         }
 
+        // ROW2 LOW → PORTD = 1011 1111b = 0xBF
         PORTD = 0xBF;
         e = PORTD & 0x0F;
         switch (e) {
@@ -104,6 +200,7 @@ char key() {
             case 0x0E: return '5';
         }
 
+        // ROW3 LOW → PORTD = 1101 1111b = 0xDF
         PORTD = 0xDF;
         e = PORTD & 0x0F;
         switch (e) {
@@ -113,6 +210,7 @@ char key() {
             case 0x0E: return 'A';
         }
 
+        // ROW4 LOW → PORTD = 1110 1111b = 0xEF
         PORTD = 0xEF;
         e = PORTD & 0x0F;
         switch (e) {
