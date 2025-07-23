@@ -59,36 +59,49 @@ We check for expected patterns using switch-case
 
 Expected Input Values from Columns:
 
-Column Pressed	Input Pattern	Binary	Hex
-C1	1110	0b1110	0x0E
-C2	1101	0b1101	0x0D
-C3	1011	0b1011	0x0B
-C4	0111	0b0111	0x07
 
-Explanation of Hex Values:
+| Column | Input Pattern | Binary   | Hex   |
+|--------|----------------|----------|-------|
+| C1     | 1110           | 0b1110   | 0x0E  |
+| C2     | 1101           | 0b1101   | 0x0D  |
+| C3     | 1011           | 0b1011   | 0x0B  |
+| C4     | 0111           | 0b0111   | 0x07  |
 
-PORTD = 0x7F = 0111 1111 → RD7 = 0 (activates Row 1)
+### 🧠 Explanation of Hex Values
 
-The keypad hardware is wired so when a key in Row 1 is pressed, one column pin is pulled low.
+- The **column bits** are connected to `PORTD` pins **RD3 to RD0**.
+- The **rows** are controlled by **RD7 to RD4**.
+- For example:  
+  `PORTD = 0x7F = 0111 1111`  
+  → This sets **RD7 = 0**, which **activates Row 1** (active-low logic).
+- When a key in **Row 1** is pressed, one of the **column pins is pulled low**, resulting in distinct patterns like:
+  - `0x0E` (C1 low), `0x0D` (C2 low), etc.
+- These patterns are used in `switch()` statements in code to **identify which key is pressed**.
 
-The column bits (RD3–RD0) form values like 0x0E, 0x0D, etc.
+---
 
-These values are decoded in switch() statements to return a corresponding character.
+## 🔘 Keypad Character Mapping
 
-🔢 Keypad Mapping
-Col 1	Col 2	Col 3	Col 4
-Row 1	1	2	3	4
-Row 2	5	6	7	8
-Row 3	A	B	C	D
-Row 4	E	F	G	H
+|       | Col 1 | Col 2 | Col 3 | Col 4 |
+|-------|-------|-------|-------|-------|
+| Row 1|   1   |   2   |   3   |   4   |
+| Row 2|   5   |   6   |   7   |   8   |
+| Row 3|   A   |   B   |   C   |   D   |
+| Row 4|   E   |   F   |   G   |   H   |
 
-Each row corresponds to a PORTD value:
+---
 
-Row	PORTD Value	Binary
-R1	0x7F	0111 1111
-R2	0xBF	1011 1111
-R3	0xDF	1101 1111
-R4	0xEF	1110 1111
+## 📟 PORTD Row Selection Values
+
+Each row is activated by setting its corresponding bit in `PORTD` to `0` (active-low):
+
+| Row | `PORTD` Value | Binary        |
+|-----|----------------|----------------|
+| R1  | 0x7F           | 0111 1111      |
+| R2  | 0xBF           | 1011 1111      |
+| R3  | 0xDF           | 1101 1111      |
+| R4  | 0xEF           | 1110 1111      |
+
 
 ```
 
