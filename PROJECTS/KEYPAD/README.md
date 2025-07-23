@@ -17,13 +17,13 @@ This project demonstrates using a **PIC18F4550 microcontroller** to interface a 
 - Keypad rows → **PORTD bits 0–3**
 - Keypad columns → **PORTD bits 4–7** with 10kΩ pull-ups
 
----
+
 
 ## 💻 Software Requirements
 - **Compiler**: MPLAB XC8 (or compatible PIC compiler)
 - **Header**: `<pic18.h>` for PIC18F4550 configuration
 
----
+
 
 ## 📌 Pin Configuration
 
@@ -51,7 +51,7 @@ A **4x4 keypad** has 4 rows and 4 columns. Every key press shorts a row and a co
 
 We scan one row at a time by outputting a **specific pattern** to `PORTD` and then reading the column lines:
 
-```c
+
 PORTD = 0x7F;  // 0111 1111 → RD7=0 (Row 1 active), RD6–RD4=1, RD3–RD0 are column inputs
 PORTD & 0x0F → reads the lower nibble (RD3–RD0)
 
@@ -103,7 +103,6 @@ Each row is activated by setting its corresponding bit in `PORTD` to `0` (active
 | R4  | 0xEF           | 1110 1111      |
 
 
-```
 
 ## ⚡ Circuit Diagram
 ![Schematic](keypad.png)
